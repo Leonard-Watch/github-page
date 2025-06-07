@@ -1,0 +1,7 @@
+class e{constructor(t,r){const i=document.getElementById(t),n=document.getElementById(r);this.modal=new bootstrap.Modal(i,{backdrop:!0,keyboard:!1,focus:!0}),this.modalEl=i,this.btnConfirmar=n,this.lastActiveElement=null,this.isProcessing=!1,this.originalBtnContent=n.innerHTML}abrir(t,r="¿Seguro que quieres eliminar?"){document.getElementById("modalEliminarTexto").textContent=r,this.lastActiveElement=document.activeElement,this.btnConfirmar.onclick=async()=>{if(!this.isProcessing)try{this.isProcessing=!0,this.btnConfirmar.disabled=!0,this.btnConfirmar.innerHTML=`
+          <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          Eliminando...
+        `,this.btnConfirmar.classList.add("disabled"),await t(),this.cerrar()}catch(i){console.error("Error en callback:",i),this.btnConfirmar.innerHTML=`
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          Error al eliminar
+        `,this.btnConfirmar.classList.add("btn-warning"),this.btnConfirmar.classList.remove("btn-danger"),setTimeout(()=>{this.resetBotonConfirmar()},3e3)}},this.modal.show(),this.modalEl.addEventListener("hidden.bs.modal",this.resetBotonConfirmar.bind(this))}cerrar(){this.modal.hide(),this.restaurarFoco()}resetBotonConfirmar(){this.isProcessing=!1,this.btnConfirmar.disabled=!1,this.btnConfirmar.innerHTML=this.originalBtnContent,this.btnConfirmar.classList.remove("disabled","btn-warning"),this.btnConfirmar.classList.add("btn-danger")}restaurarFoco(){var t;(t=this.lastActiveElement)==null||t.focus()}}export{e as M};
